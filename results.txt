@@ -1,0 +1,292 @@
+c5.large
+========
+
+Ubuntu Server 20.04 LTS (HVM), SSD Volume Type
+
+
+(venv) ubuntu:~/resnet$ ./test 
+reading 102546848 25636712 
+read 25636712 params 
+reading elephant 
+read 150528 elephant items 
+Time spent 0.077080
+Time spent 0.069815
+Time spent 0.070048
+Time spent 0.069773
+Time spent 0.069790
+Time spent 0.070421
+Time spent 0.070288
+Time spent 0.071040
+Time spent 0.072234
+Time spent 0.071089
+Time spent 0.072755
+Time spent 0.072045
+Time spent 0.071290
+Time spent 0.071005
+Time spent 0.071887
+Time spent 0.072109
+Time spent 0.071977
+Time spent 0.069788
+Time spent 0.070628
+Time spent 0.070876
+
+(venv) ubuntu:~$ python infer_tf.py 
+
+0.8034369945526123
+0.12759828567504883
+0.12777447700500488
+0.12601494789123535
+0.12650322914123535
+0.12316513061523438
+0.12874484062194824
+0.12354278564453125
+0.12451696395874023
+0.12497997283935547
+0.12408900260925293
+0.129530668258667
+0.12375712394714355
+0.13556528091430664
+0.12637543678283691
+0.12596583366394043
+0.12291669845581055
+0.12694549560546875
+0.1265556812286377
+0.1256554126739502
+batch_2
+0.20166516304016113
+0.2066664695739746
+0.27762937545776367
+0.20529556274414062
+0.2073519229888916
+0.2025766372680664
+0.21053385734558105
+0.20046520233154297
+0.20654892921447754
+0.20540523529052734
+0.21323466300964355
+0.20629477500915527
+0.2053370475769043
+0.20827507972717285
+0.2041797637939453
+0.2076888084411621
+0.20801091194152832
+0.21411824226379395
+0.2040393352508545
+0.208709716796875
+batch_4
+0.3773226737976074
+0.36729907989501953
+0.3630542755126953
+0.353137731552124
+0.35651373863220215
+0.36110615730285645
+0.3580451011657715
+0.35483717918395996
+0.3508791923522949
+0.3500092029571533
+0.3528599739074707
+0.3542001247406006
+0.3545820713043213
+0.3571150302886963
+0.3496675491333008
+0.3475363254547119
+0.35291457176208496
+0.3517599105834961
+0.35051965713500977
+0.3481786251068115
+
+
+
+(venv) ubuntu@ip-172-31-31-41:~$ python test_deep_sparse.py 
+DeepSparse Engine, Copyright 2021-present / Neuralmagic, Inc. version: 0.5.1 (6f13b19b) (release) (optimized) (system=avx512, binary=avx512)
+batch_size 1
+inference_time 0.06877994537353516
+batch_size 1
+inference_time 0.0690314769744873
+batch_size 1
+inference_time 0.06916618347167969
+--
+batch_size 2
+inference_time 0.1481943130493164
+batch_size 2
+inference_time 0.1421349048614502
+batch_size 2
+inference_time 0.14257526397705078
+--
+batch_size 4
+inference_time 0.28206419944763184
+batch_size 4
+inference_time 0.2681260108947754
+batch_size 4
+inference_time 0.2653486728668213
+--
+batch_size 64
+inference_time 4.4515509605407715
+batch_size 64
+inference_time 4.195083856582642
+batch_size 64
+inference_time 4.184422492980957
+--
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+c5.xlarge
+========
+
+threads 1
+
+
+(venv) ubuntu@ip-172-31-47-112:~/resnet$ ./test 
+reading 102546848 25636712 
+read 25636712 params 
+reading elephant 
+read 150528 elephant items 
+Time spent 0.084229
+Time spent 0.075420
+Time spent 0.075191
+Time spent 0.074734
+Time spent 0.076080
+Time spent 0.075218
+Time spent 0.075648
+Time spent 0.075982
+Time spent 0.074893
+Time spent 0.075497
+Time spent 0.075431
+Time spent 0.074639
+Time spent 0.074762
+Time spent 0.076073
+Time spent 0.074155
+Time spent 0.076277
+Time spent 0.077869
+Time spent 0.076993
+Time spent 0.076216
+Time spent 0.075613
+
+
+threads 2
+
+(venv) ubuntu@ip-172-31-47-112:~/resnet$ ./test 
+reading 102546848 25636712 
+read 25636712 params 
+reading elephant 
+read 150528 elephant items 
+CLOCK_MONOTONIC time spent: 0.050626
+CLOCK_MONOTONIC time spent: 0.037525
+CLOCK_MONOTONIC time spent: 0.037749
+CLOCK_MONOTONIC time spent: 0.037865
+CLOCK_MONOTONIC time spent: 0.036650
+CLOCK_MONOTONIC time spent: 0.037368
+CLOCK_MONOTONIC time spent: 0.037199
+CLOCK_MONOTONIC time spent: 0.037432
+CLOCK_MONOTONIC time spent: 0.037457
+CLOCK_MONOTONIC time spent: 0.038006
+CLOCK_MONOTONIC time spent: 0.037811
+CLOCK_MONOTONIC time spent: 0.037554
+CLOCK_MONOTONIC time spent: 0.037757
+CLOCK_MONOTONIC time spent: 0.037325
+CLOCK_MONOTONIC time spent: 0.037273
+CLOCK_MONOTONIC time spent: 0.037304
+CLOCK_MONOTONIC time spent: 0.037524
+CLOCK_MONOTONIC time spent: 0.037597
+CLOCK_MONOTONIC time spent: 0.037304
+CLOCK_MONOTONIC time spent: 0.037721
+
+
+batch_size 1
+inference_time 0.037508487701416016
+batch_size 1
+inference_time 0.037212371826171875
+batch_size 1
+inference_time 0.03692197799682617
+--
+batch_size 2
+inference_time 0.08042502403259277
+batch_size 2
+inference_time 0.07558894157409668
+batch_size 2
+inference_time 0.0769035816192627
+--
+batch_size 4
+inference_time 0.15753722190856934
+batch_size 4
+inference_time 0.1475236415863037
+batch_size 4
+inference_time 0.1486670970916748
+--
+batch_size 64
+inference_time 2.340096950531006
+batch_size 64
+inference_time 2.2113959789276123
+batch_size 64
+inference_time 2.199428081512451
+--
+
+
+
+(venv) ubuntu@ip-172-31-47-112:~$ python test_deep_sparse.py 
+DeepSparse Engine, Copyright 2021-present / Neuralmagic, Inc. version: 0.5.1 (6f13b19b) (release) (optimized) (system=avx512, binary=avx512)
+batch_size 1
+inference_time 0.037636756896972656
+batch_size 1
+inference_time 0.03741860389709473
+batch_size 1
+inference_time 0.03733968734741211
+--
+batch_size 2
+inference_time 0.07939863204956055
+batch_size 2
+inference_time 0.0761876106262207
+batch_size 2
+inference_time 0.07608747482299805
+--
+batch_size 4
+inference_time 0.15863442420959473
+batch_size 4
+inference_time 0.1512012481689453
+batch_size 4
+inference_time 0.15157604217529297
+--
+batch_size 64
+inference_time 2.3486382961273193
+batch_size 64
+inference_time 2.2167110443115234
+batch_size 64
+inference_time 2.2108795642852783
+--
+
+
+
+checking older DeepSparse Engine:
+
+DeepSparse Engine, Copyright 2021-present / Neuralmagic, Inc. version: 0.1.1 (4191ab46) (release) (optimized) (system=avx512, binary=avx512)
+batch_size 1
+inference_time 0.0416865348815918
+batch_size 1
+inference_time 0.03933286666870117
+batch_size 1
+inference_time 0.03974437713623047
+--
+batch_size 2
+inference_time 0.08532857894897461
+batch_size 2
+inference_time 0.08177638053894043
+batch_size 2
+inference_time 0.08168268203735352
+--
+batch_size 4
+inference_time 0.16167640686035156
+batch_size 4
+inference_time 0.15467500686645508
+batch_size 4
+inference_time 0.1553339958190918
+--
+batch_size 64
+inference_time 2.8187265396118164
+batch_size 64
+inference_time 2.721835136413574
+batch_size 64
+inference_time 2.694533109664917
+--

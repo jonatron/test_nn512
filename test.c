@@ -50,21 +50,24 @@ int main() {
     int read2 = fread(imageData, sizeof(float), 3*224*224, f2);
     printf("read %i elephant items \n", read2);
 
-    for(int i = 0; i < 1; i++) {
-        clock_t begin = clock();
+    struct timespec start, finish;
+    double elapsed;
+    for(int i = 0; i < 20; i++) {
+        clock_gettime(CLOCK_MONOTONIC, &start);
         ResNet50EngineInference( // This function cannot fail.
             engine0, // Pass an Engine as the first argument.
             imageData, // The tensor arguments are sorted by name.
             probData
         );
 
-        clock_t end = clock();
-        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-        printf("Time spent %f\n", time_spent);
+        clock_gettime(CLOCK_MONOTONIC, &finish);
+        elapsed = (finish.tv_sec - start.tv_sec);
+        elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
+        printf("CLOCK_MONOTONIC time spent: %f\n", elapsed);
 
         for(int j = 0; j < 1000; j++) {
             if(probData[j] > 0.01) {
-                printf("idx: %d prob: %.20f \n", j, probData[j]);
+                // printf("idx: %d prob: %.20f \n", j, probData[j]);
             }
         }
     }
