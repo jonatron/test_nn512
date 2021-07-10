@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testing NN-512</title>
+	<style type="text/css">
+		body {
+			font-family: sans-serif;
+		}
+		blockquote {
+			font-family: monospace;
+		}
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<h2>Testing NN-512</h2>
+
+	<p><a href="https://nn-512.com/">NN-512</a> <a href="https://news.ycombinator.com/item?id=25290112">appeared on HN</a> in late 2020.</p>
+
+	<p>No benchmarks were provided, which may be a reason why it didn't get much attention.
+
+	<p>I decided to try NN-512 with ResNet50. It comes with this network graph as an example, and the generated ResNet50.h file contains some code snippets in the comments of an example of how to use it.
+
+	<p>NN-512 doesn't come with any weights / params / floats, or any examples of how to generate them.
+
+	<p>The first attempt to save weights was with PyTorch, but eventually I found that it uses a <a href="https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py#L90">modified</a> ResNet:
+	<blockquote># This variant is also known as ResNet V1.5 and improves accuracy according to<br>
+    # https://ngc.nvidia.com/catalog/model-scripts/nvidia:resnet_50_v1_5_for_pytorch.</blockquote>
+
+	<p>I asked the NN-512 author 37ef what I was doing wrong, and got some useful information:
+		<ul>
+			<li>The orders of the weights weren't right</li>
+			<li>The example was based on caffe</li>
+			<li>You should generate the graph and collect the weights at the same time</li>
+		</ul>
+
+	<p>Once I had <a href="https://github.com/jonatron/test_nn512/blob/master/save_float_caffe.py">saved the caffe weights</a> and checked it works, I moved onto generating a <a href="https://github.com/jonatron/test_nn512/blob/master/save_graph_tf.py">graph from TensorFlow / Keras</a> and saving the weights at the same time.
+
+	<p>I compared the speed of NN-512 with Tensorflow and <a href="https://neuralmagic.com/">Neural Magic</a> <a href="https://github.com/neuralmagic/deepsparse">DeepSparse</a>
+		on an AWS c5.large and c5.xlarge on Ubuntu Server 20.04 LTS.
+
+	<h4>Results</h4>
+
+	<p>My interpretation of the <a href="https://github.com/jonatron/test_nn512/blob/master/results.txt">results</a> show that NN-512 is significantly faster than Tensorflow 
+		(without looking at <a href="https://www.tensorflow.org/guide/graph_optimization">optimisation</a> and very similar in speed to DeepSparse.
+
+	<p><b>TLDR</b> If you want numbers: it's about 27 ResNet50 inferences per second for NN-512 or DeepSparse on c5.xlarge, vs about 12 with a batch size of 4 for Tensorflow.
+
+	<p>DeepSparse is closed source, but apparently free to use. It was also designed to be used with Pruning and Quantisation, which NN-512 has nothing to do with.
+
+	<p>In short, if you want to run a ConvNet inference on CPU, and you want to use open source code, NN-512 looks fast.
+
+	<h4>Future work I'd like to see:</h4>
+		<ul>
+			<li>Proper, more scientific, benchmarks on more cloud providers against more frameworks
+			<li>Quantisation</li>
+			<li>More, and more complete graph converters / weight savers for more frameworks</li>
+		</ul>
+
+</body>
+</html>
