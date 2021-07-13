@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Testing NN-512</title>
+	<title>NN-512 Speed vs TF vs DeepSparse</title>
 	<style type="text/css">
 		body {
 			font-family: sans-serif;
@@ -9,11 +9,20 @@
 		blockquote {
 			font-family: monospace;
 		}
+		table {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+		th, td {
+			border: 1px solid black;
+			padding: 3px;
+		}
 	</style>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<h2>Testing NN-512</h2>
+	<!-- Gmail: jonath4n@ -->
+	<h2>NN-512 Speed vs TF vs DeepSparse</h2>
 
 	<p><a href="https://nn-512.com/">NN-512</a> <a href="https://news.ycombinator.com/item?id=25290112">appeared on HN</a> in late 2020.</p>
 
@@ -41,10 +50,295 @@
 
 	<h4>Results</h4>
 
-	<p>My interpretation of the <a href="https://github.com/jonatron/test_nn512/blob/master/results.txt">results</a> show that NN-512 is significantly faster than Tensorflow 
-		(without looking at <a href="https://www.tensorflow.org/guide/graph_optimization">optimisation</a> and very similar in speed to DeepSparse.
+	<p>View HTML for full results, I picked a rounded average looking value. Not scientific, but quick.
 
-	<p><b>TLDR</b> If you want numbers: it's about 27 ResNet50 inferences per second for NN-512 or DeepSparse on c5.xlarge, vs about 12 with a batch size of 4 for Tensorflow.
+	<table>
+		<tr>
+			<th>Machine</th>
+			<th>Type</th>
+			<th>Batch Size</th>
+			<th>Time per inference</th>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>TF/Keras</td>
+			<td>1</td>
+			<td><!--batch_1
+2021-07-13 19:50:04.568358: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
+2021-07-13 19:50:04.586374: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2999990000 Hz
+0.7560572624206543
+0.13018155097961426
+0.1267092227935791
+0.1267693042755127
+0.12810945510864258
+batch_2
+0.20711946487426758
+0.21476221084594727
+0.21222996711730957
+0.20898866653442383
+0.2065746784210205
+batch_4
+0.38155269622802734
+0.35601043701171875
+0.36373043060302734
+0.3552436828613281
+0.37300586700439453
+batch_64
+6.904598236083984
+6.313548564910889
+6.321438312530518
+-->		0.13</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>TF/Keras</td>
+			<td>2</td>
+			<td><!--0.21 / 2 = -->0.105</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>TF/Keras</td>
+			<td>4</td>
+			<td><!--0.36 / 4 = -->0.09</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>TF/Keras</td>
+			<td>64</td>
+			<td><!--6.3 / 64 = -->0.10</td>
+		</tr>
+
+		<tr>
+			<td>C5.large</td>
+			<td>DeepSparse</td>
+			<td>1</td>
+			<td><!--
+
+			batch_size 1
+inference_time 0.07113027572631836
+batch_size 1
+inference_time 0.07086658477783203
+batch_size 1
+inference_time 0.07056403160095215
+--
+batch_size 2
+inference_time 0.15054821968078613
+batch_size 2
+inference_time 0.16285061836242676
+batch_size 2
+inference_time 0.14405083656311035
+--
+batch_size 4
+inference_time 0.28574395179748535
+batch_size 4
+inference_time 0.2745022773742676
+batch_size 4
+inference_time 0.27547144889831543
+--
+batch_size 64
+inference_time 4.605040073394775
+batch_size 64
+inference_time 4.344351530075073
+batch_size 64
+inference_time 4.326814889907837
+--
+
+-->		0.070</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>DeepSparse</td>
+			<td>2</td>
+			<td><!--0.15 / 2 = -->0.075</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>DeepSparse</td>
+			<td>4</td>
+			<td><!--0.27 / 4 =  -->0.068</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>DeepSparse</td>
+			<td>64</td>
+			<td><!--4.34 / 64 =  -->0.068</td>
+		</tr>
+
+		<tr>
+			<td>C5.large</td>
+			<td>NN-512</td>
+			<td>1</td>
+			<td>
+			0.069
+			<!--
+			CLOCK_MONOTONIC time spent: 0.076971
+			CLOCK_MONOTONIC time spent: 0.069276
+			CLOCK_MONOTONIC time spent: 0.069361
+			CLOCK_MONOTONIC time spent: 0.068964
+			CLOCK_MONOTONIC time spent: 0.069228
+			CLOCK_MONOTONIC time spent: 0.068846
+			CLOCK_MONOTONIC time spent: 0.068908
+			CLOCK_MONOTONIC time spent: 0.068951
+			CLOCK_MONOTONIC time spent: 0.069234
+			CLOCK_MONOTONIC time spent: 0.069129
+			CLOCK_MONOTONIC time spent: 0.069166
+			CLOCK_MONOTONIC time spent: 0.069119
+			CLOCK_MONOTONIC time spent: 0.069068
+			CLOCK_MONOTONIC time spent: 0.069369
+			CLOCK_MONOTONIC time spent: 0.068954
+			CLOCK_MONOTONIC time spent: 0.069332
+			CLOCK_MONOTONIC time spent: 0.068773
+			CLOCK_MONOTONIC time spent: 0.069042
+			CLOCK_MONOTONIC time spent: 0.069065
+			CLOCK_MONOTONIC time spent: 0.068212
+			-->
+			</td>
+		</tr>
+
+
+
+
+
+
+		<!--  -->
+
+
+
+
+
+
+		<tr>
+			<td>C5.xlarge</td>
+			<td>TF/Keras</td>
+			<td>1</td>
+			<td>0.088<!--0.7323944568634033
+0.0888216495513916
+0.08857059478759766
+0.08601808547973633
+0.09343814849853516
+batch_2
+0.13862872123718262
+0.13297438621520996
+0.13187551498413086
+0.12964773178100586
+0.13065814971923828
+batch_4
+0.21349525451660156
+0.21035432815551758
+0.20530176162719727
+0.2044234275817871
+0.20173311233520508
+batch_64
+3.6941003799438477
+3.1364598274230957
+3.2041478157043457
+--></td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>TF/Keras</td>
+			<td>2</td>
+			<td><!--0.13 / 2 = -->0.065</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>TF/Keras</td>
+			<td>4</td>
+			<td><!--0.20 / 4 = -->0.05</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>TF/Keras</td>
+			<td>64</td>
+			<td><!--3.13 / 64 = -->0.049</td>
+		</tr>
+
+		<tr>
+			<td>C5.xlarge</td>
+			<td>DeepSparse</td>
+			<td>1</td>
+			<td><!--batch_size 1
+inference_time 0.034227609634399414
+batch_size 1
+inference_time 0.03367114067077637
+batch_size 1
+inference_time 0.033812522888183594
+--
+batch_size 2
+inference_time 0.07354021072387695
+batch_size 2
+inference_time 0.07121586799621582
+batch_size 2
+inference_time 0.07037115097045898
+--
+batch_size 4
+inference_time 0.14137554168701172
+batch_size 4
+inference_time 0.13586950302124023
+batch_size 4
+inference_time 0.13461923599243164
+--
+batch_size 64
+inference_time 2.143045663833618
+batch_size 64
+inference_time 2.022458791732788
+batch_size 64
+inference_time 2.0199742317199707
+-->0.033</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>DeepSparse</td>
+			<td>2</td>
+			<td><!--0.071 / 2 =-->0.035</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>DeepSparse</td>
+			<td>4</td>
+			<td><!--0.13 / 4 = -->0.032</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>DeepSparse</td>
+			<td>64</td>
+			<td><!--2.02 / 64 = -->0.031</td>
+		</tr>
+
+		<tr>
+			<td>C5.xlarge</td>
+			<td>NN-512</td>
+			<td>1</td>
+			<td>0.035<!--
+int threads = 2;
+CLOCK_MONOTONIC time spent: 0.054596
+CLOCK_MONOTONIC time spent: 0.035573
+CLOCK_MONOTONIC time spent: 0.035699
+CLOCK_MONOTONIC time spent: 0.035364
+CLOCK_MONOTONIC time spent: 0.035508
+CLOCK_MONOTONIC time spent: 0.035535
+CLOCK_MONOTONIC time spent: 0.035663
+CLOCK_MONOTONIC time spent: 0.035444
+CLOCK_MONOTONIC time spent: 0.035634
+CLOCK_MONOTONIC time spent: 0.035551
+CLOCK_MONOTONIC time spent: 0.035839
+CLOCK_MONOTONIC time spent: 0.034897
+CLOCK_MONOTONIC time spent: 0.035059
+CLOCK_MONOTONIC time spent: 0.035035
+CLOCK_MONOTONIC time spent: 0.035209
+CLOCK_MONOTONIC time spent: 0.035066
+CLOCK_MONOTONIC time spent: 0.034958
+CLOCK_MONOTONIC time spent: 0.035219
+CLOCK_MONOTONIC time spent: 0.035028
+CLOCK_MONOTONIC time spent: 0.034625
+--></td>
+		</tr>
+
+
+	</table>
+
+	<p>My interpretation of the results show that NN-512 is significantly faster than Tensorflow 
+		(without looking at <a href="https://www.tensorflow.org/guide/graph_optimization">optimisation</a>) and very similar in speed to DeepSparse.
 
 	<p>DeepSparse is closed source, but apparently free to use. It was also designed to be used with Pruning and Quantisation, which NN-512 has nothing to do with.
 
