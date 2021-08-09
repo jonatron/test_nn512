@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>NN-512 Speed vs TF vs DeepSparse</title>
-	<style type="text/css">
+	<title>NN-512, ONNX Runtime, TensorFlow, DeepSparse inference speed compared</title>
+	<style>
 		body {
 			font-family: sans-serif;
 		}
@@ -22,7 +22,7 @@
 </head>
 <body>
 	<!-- Gmail: jonath4n@ -->
-	<h2>NN-512 Speed vs TF vs DeepSparse</h2>
+	<h2>NN-512, ONNX Runtime, TensorFlow, DeepSparse inference speed compared</h2>
 
 	<p><a href="https://nn-512.com/">NN-512</a> <a href="https://news.ycombinator.com/item?id=25290112">appeared on HN</a> in late 2020.</p>
 
@@ -120,28 +120,28 @@ batch_size 1
 inference_time 0.07086658477783203
 batch_size 1
 inference_time 0.07056403160095215
---
+====
 batch_size 2
 inference_time 0.15054821968078613
 batch_size 2
 inference_time 0.16285061836242676
 batch_size 2
 inference_time 0.14405083656311035
---
+====
 batch_size 4
 inference_time 0.28574395179748535
 batch_size 4
 inference_time 0.2745022773742676
 batch_size 4
 inference_time 0.27547144889831543
---
+====
 batch_size 64
 inference_time 4.605040073394775
 batch_size 64
 inference_time 4.344351530075073
 batch_size 64
 inference_time 4.326814889907837
---
+====
 
 -->		0.070</td>
 		</tr>
@@ -195,8 +195,64 @@ inference_time 4.326814889907837
 			</td>
 		</tr>
 
-
-
+		<tr>
+			<td>C5.large</td>
+			<td>ONNX</td>
+			<td>1</td>
+			<td>
+			0.058
+			<!--
+ONNX time taken:  0.0577239990234375
+ONNX time taken:  0.05805182456970215
+ONNX time taken:  0.058115243911743164
+ONNX time taken:  0.05827689170837402
+ONNX time taken:  0.058321237564086914
+			-->
+			</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>ONNX</td>
+			<td>2</td>
+			<td>
+			0.058
+			<!--
+ONNX time taken:  0.12014937400817871
+ONNX time taken:  0.11585879325866699
+ONNX time taken:  0.11612725257873535
+ONNX time taken:  0.11635470390319824
+ONNX time taken:  0.11638832092285156
+			-->
+			</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>ONNX</td>
+			<td>4</td>
+			<td>
+			0.058
+			<!--
+ONNX time taken:  0.23637962341308594
+ONNX time taken:  0.23650550842285156
+ONNX time taken:  0.23071551322937012
+ONNX time taken:  0.2299344539642334
+ONNX time taken:  0.22803735733032227
+			-->
+			</td>
+		</tr>
+		<tr>
+			<td>C5.large</td>
+			<td>ONNX</td>
+			<td>64</td>
+			<td>
+			0.058
+			<!--
+ONNX time taken:  3.851538896560669
+ONNX time taken:  3.6936404705047607
+ONNX time taken:  3.5915579795837402
+			-->
+			</td>
+		</tr>
 
 
 
@@ -263,21 +319,21 @@ batch_size 1
 inference_time 0.03367114067077637
 batch_size 1
 inference_time 0.033812522888183594
---
+====
 batch_size 2
 inference_time 0.07354021072387695
 batch_size 2
 inference_time 0.07121586799621582
 batch_size 2
 inference_time 0.07037115097045898
---
+====
 batch_size 4
 inference_time 0.14137554168701172
 batch_size 4
 inference_time 0.13586950302124023
 batch_size 4
 inference_time 0.13461923599243164
---
+====
 batch_size 64
 inference_time 2.143045663833618
 batch_size 64
@@ -335,10 +391,71 @@ CLOCK_MONOTONIC time spent: 0.034625
 		</tr>
 
 
+
+		<tr>
+			<td>C5.xlarge</td>
+			<td>ONNX</td>
+			<td>1</td>
+			<td>
+			0.035
+			<!--
+ONNX time taken:  0.035271406173706055
+ONNX time taken:  0.032076358795166016
+ONNX time taken:  0.03600740432739258
+ONNX time taken:  0.03529644012451172
+ONNX time taken:  0.03487038612365723
+			-->
+			</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>ONNX</td>
+			<td>2</td>
+			<td>
+			0.031
+			<!--
+ONNX time taken:  0.06954813003540039
+ONNX time taken:  0.06292271614074707
+ONNX time taken:  0.0605771541595459
+ONNX time taken:  0.06239032745361328
+ONNX time taken:  0.05980110168457031
+			-->
+			</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>ONNX</td>
+			<td>4</td>
+			<td>
+			0.03
+			<!--
+ONNX time taken:  0.12491321563720703
+ONNX time taken:  0.12362933158874512
+ONNX time taken:  0.11838126182556152
+ONNX time taken:  0.11984419822692871
+ONNX time taken:  0.1197807788848877
+			-->
+			</td>
+		</tr>
+		<tr>
+			<td>C5.xlarge</td>
+			<td>ONNX</td>
+			<td>64</td>
+			<td>
+			0.03
+			<!--
+ONNX time taken:  2.0437183380126953
+ONNX time taken:  1.9716084003448486
+ONNX time taken:  1.8986179828643799
+			-->
+			</td>
+		</tr>
+
+
 	</table>
 
 	<p>My interpretation of the results show that NN-512 is significantly faster than Tensorflow 
-		(without looking at <a href="https://www.tensorflow.org/guide/graph_optimization">optimisation</a>) and very similar in speed to DeepSparse.
+		(without looking at <a href="https://www.tensorflow.org/guide/graph_optimization">optimisation</a>) and very similar in speed to DeepSparse. ONNX runtime appears to be the fastest on c5.large, but similar to DeepSparse and NN-512 on c5.xlarge.
 
 	<p>DeepSparse is closed source, but apparently free to use. It was also designed to be used with Pruning and Quantisation, which NN-512 has nothing to do with.
 
